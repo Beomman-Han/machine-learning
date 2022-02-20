@@ -1,6 +1,7 @@
 # n번째 피보나치 수를 리턴
 def fib(n: int) -> int:
     """fibonacci by recursive method
+    Time complexity : O(2^n)
     
     Parameters
     ----------
