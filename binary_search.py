@@ -144,4 +144,4 @@ print(binary_search_2(0, [2, 3, 5, 7, 11]))
 print(binary_search_2(5, [2, 3, 5, 7, 11]))
 print(binary_search_2(3, [2, 3, 5, 7, 11]))
 print(binary_search_2(11, [2, 3, 5, 7, 11]))
-    
+print(binary_search_2(13, [2, 3, 5, 7, 11]))
