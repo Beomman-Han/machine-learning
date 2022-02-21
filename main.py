@@ -1,4 +1,3 @@
-from algorithm_codeit.binary_search import binary_search
 import binary_search as bs
 
 if __name__ == '__main__':
