@@ -139,9 +139,10 @@ def binary_search_2(element: T, some_list: List[T], start_index: int=0, end_inde
             return None
 
 
-print(binary_search_2(2, [2, 3, 5, 7, 11]))
-print(binary_search_2(0, [2, 3, 5, 7, 11]))
-print(binary_search_2(5, [2, 3, 5, 7, 11]))
-print(binary_search_2(3, [2, 3, 5, 7, 11]))
-print(binary_search_2(11, [2, 3, 5, 7, 11]))
-print(binary_search_2(13, [2, 3, 5, 7, 11]))
+if __name__ == '__main__':
+
+    print(binary_search_2(2, [2, 3, 5, 7, 11]))
+    print(binary_search_2(0, [2, 3, 5, 7, 11]))
+    print(binary_search_2(5, [2, 3, 5, 7, 11]))
+    print(binary_search_2(3, [2, 3, 5, 7, 11]))
+    print(binary_search_2(11, [2, 3, 5, 7, 11]))
