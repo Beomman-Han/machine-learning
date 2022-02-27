@@ -1,4 +1,5 @@
 from re import S
+from typing import Set
 
 
 def move_disk(disk_num: int, start_peg: int, end_peg: int) -> None:
@@ -19,6 +20,8 @@ def move_disk(disk_num: int, start_peg: int, end_peg: int) -> None:
 def hanoi(num_disks: int, start_peg: int, end_peg: int) -> None:
     """implementation of hanoi top problem (only 3 pegs case)
     
+    Time complexity : O(2^n)
+        
     Hanoi top problem
      - {num_disks} disks move from {start_peg} to {end_peg}
      - number of disk represent the size of disk
@@ -45,6 +48,30 @@ def hanoi(num_disks: int, start_peg: int, end_peg: int) -> None:
     move_disk(num_disks, start_peg, end_peg)  ## move the biggest disk to end
     hanoi(num_disks - 1, temp_peg, end_peg)  ## move {num_disks} - 1 disks from temp to end
 
+    return
+
+def hanoi_extend(num_disks: int, start_peg: int, end_peg: int, temp_pegs: Set[int]) -> None:
+    """implementation algorithm solving hanoi problem (regardless of # of pegs)
+
+    Parameters
+    ----------
+    num_disks : int
+        the number of disks
+    start_peg : int
+        start peg id
+    end_peg : int
+        end peg id
+    temp_pegs : Set[int]
+        set of temp pegs (total_pegs - {start_peg, end_peg})
+    """
+    
+    ## base case is the same with threee pegs hanoi
+    if num_disks == 1:
+        move_disk(num_disks, start_peg, end_peg)
+        return
+    
+    ## recursive case
+    
     return
 
 # 테스트 코드 (포함하여 제출해주세요)
