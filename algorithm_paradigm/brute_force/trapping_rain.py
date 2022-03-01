@@ -49,6 +49,53 @@ def trapping_rain_v2(
         total_rain += rain
     return total_rain
 
+def trapping_rain_v3(
+    buildings: List[int]
+    ) -> int:
+    """Calculate the amount of rain 
+    trapped between buildings.
+    
+    Ex) [3, 0, 0, 2, 0, 4] : the total number of '~' ('~' representing rain)
+    
+             |             |
+        |    |        |~~~~|
+        |  | |   =>   |~~|~|
+        |  | |      > |~~|~|
+        ------        ------
+    
+    From the highest building, calculate amount of rain horizontally        
+
+    Time Complexity
+    ---------------
+    O(n * m)
+        n : length of buildings
+        m : max element of buildings
+
+    Parameters
+    ----------
+    buildings : List[int]
+        list of the height of buildings
+
+    Returns
+    -------
+    int
+        the amount of rain
+    """
+    
+    total_rain = 0
+    for floor in range(1, max(buildings)+1):
+        left = -1
+        for i in range(len(buildings)):
+            
+            if buildings[i] >= floor:
+                if left >= 0:
+                    total_rain += (i - left - 1)
+                    left = i
+                else:
+                    left = i
+                    
+    return total_rain
+
 def trapping_rain(
     buildings: List[int]
     ) -> int:
@@ -99,5 +146,5 @@ def trapping_rain(
 if __name__ == '__main__':
 
     # 테스트
-    print(trapping_rain_v2([3, 0, 0, 2, 0, 4]))  ## 4 + 4 + 1 + 1 = 10
-    print(trapping_rain_v2([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))  ## 1 + 3 + 1 + 1
+    print(trapping_rain_v3([3, 0, 0, 2, 0, 4]))  ## 4 + 4 + 1 + 1 = 10
+    print(trapping_rain_v3([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))  ## 1 + 3 + 1 + 1
