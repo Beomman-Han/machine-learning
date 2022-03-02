@@ -1,8 +1,6 @@
 import sys
 from typing import List, Tuple
 
-from pandas import pivot
-
 def quick_sort_v1(
     input_list: List[int]
     ) -> List[int]:
