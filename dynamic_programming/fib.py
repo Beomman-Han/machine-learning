@@ -44,7 +44,7 @@ print(fib(10))
 print(fib(50))
 print(fib(100))
 
-def fib_tab(n : int):
+def fib_tab(n : int) -> int:
     """Calculate n th fibonacci number 
     with 'tabulation' method (bottom-up approach).
 
@@ -52,6 +52,11 @@ def fib_tab(n : int):
     ----------
     n : int
         n th of fibonacci
+        
+    Returns
+    -------
+    int
+        n th number of fib
     """
     
     table = {1 : 1, 2 : 1}
@@ -64,3 +69,34 @@ def fib_tab(n : int):
 print(fib_tab(10))
 print(fib_tab(56))
 print(fib_tab(132))
+
+def fib_optimized(n : int) -> int:
+    """Calculate n th fibonacci number
+    with 'memory optimization'.
+    To calculate fib number, we do not have to
+    save all previous number.
+
+    Parameters
+    ----------
+    n : int
+        n th of fib
+
+    Returns
+    -------
+    int
+        n th number of fib
+    """
+    
+    prev, curr = 0, 1
+    for _ in  range(n - 1):
+        curr, prev = prev + curr, curr
+        ## another way (bb)
+        # curr = prev + curr
+        # prev = curr - prev
+
+    return curr
+
+# 테스트
+print(fib_optimized(16))
+print(fib_optimized(53))
+print(fib_optimized(213))
