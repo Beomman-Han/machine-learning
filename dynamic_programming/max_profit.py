@@ -42,14 +42,19 @@ def max_profit_memo(
         return cache[count]
         
     ## recursive case
-    profits = []
+    # profits = []
     if count < len(price_list):
-        profits.append(price_list[count])
+        # profits.append(price_list[count])
+        profit = price_list[count]
+    else:
+        profit = 0
         
     for i in range(1, count // 2 + 1):
-        profits.append(max_profit_memo(price_list, count - i, cache) + max_profit_memo(price_list, i, cache))
+        # profits.append(max_profit_memo(price_list, count - i, cache) + max_profit_memo(price_list, i, cache))
+        profit = max(profit, max_profit_memo(price_list, count - i, cache) + max_profit_memo(price_list, i, cache))
     
-    return max(profits)
+    # return max(profits)
+    return profit
     
 def max_profit(price_list, count):
     max_profit_cache = {}
