@@ -61,6 +61,19 @@ class LinkedList:
 
         return
     
+    def __getitem__(self, index : int) -> Type['Node']:
+        """Get node by index"""
+        
+        print(index)
+        iterator = self.head
+        for _ in range(index):
+            try:
+                iterator = iterator.next
+            except AttributeError:
+                raise Exception('IndexError: index out of range')
+        
+        return iterator
+    
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
         
@@ -108,8 +121,13 @@ if __name__ == '__main__':
         while iterator is not None:
             print(iterator.data)
             iterator = iterator.next
-            
+        
+        ## test __str__ method
         print(linked_list)
+        
+        ## test __getitem__ method
+        print(linked_list[0].data)
+        
         
         return
     
