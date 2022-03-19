@@ -100,7 +100,27 @@ class DoubleLinkedList:
             previous_node.next.prev = new_node
             previous_node.next = new_node
             
-        return    
+        return
+    
+    def prepend(self, data : E) -> None:
+        """Insert node containing data at the first of list 
+
+        Parameters
+        ----------
+        data : E
+            Data for prepending
+        """
+        
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        return
+        
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
         
@@ -148,8 +168,9 @@ if __name__ == '__main__':
         print(my_list)
         my_list.insert_after(my_list[-1], 50)
         print(my_list)
-        print(my_list[-1].prev.data)
-        print(my_list[-2].next.data)
+        
+        my_list.prepend(100)
+        print(my_list)
 
         return
     
