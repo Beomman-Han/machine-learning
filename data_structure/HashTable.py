@@ -58,13 +58,33 @@ def hash_function_multiplication(
 
 
 if __name__ == '__main__':
+    ## test hash_function_remainder
     print(hash_function_remainder(40, 200))
     print(hash_function_remainder(120, 200))
     print(hash_function_remainder(788, 200))
     print(hash_function_remainder(2307, 200))
     print()
     
+    ## test hash_function_multiplication
     print(hash_function_multiplication(40, 200, 0.61426212))
     print(hash_function_multiplication(120, 200, 0.61426212))
     print(hash_function_multiplication(788, 200, 0.61426212))
     print(hash_function_multiplication(2307, 200, 0.61426212))
+    print()
+    
+    ## test python hash function
+    print(hash(12345))
+    print(hash(12345))
+    print(hash(12346))
+    
+    print(hash(15.1234))
+    print(hash(15.1234))
+    print(hash(81.1234))
+
+    # print(hash("파이썬"))
+    # print(hash("파이썬"))
+    # print(hash("자바"))
+    
+    print(hash('파이썬'))
+    print(hash('파이썬'))
+    print(hash('자바'))
