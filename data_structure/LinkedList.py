@@ -1,3 +1,4 @@
+from os import link
 from typing import Iterator, Type, TypeVar
 
 E = TypeVar('E')
@@ -75,6 +76,16 @@ class LinkedList:
         
         return iterator
     
+    def find(self, data : E) -> Type['Node']:
+        """Find node containing input data"""
+        
+        iterator = self.head
+        while iterator is not None:
+            if iterator.data == data:
+                return iterator
+            iterator = iterator.next
+        return iterator
+    
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
         
@@ -127,7 +138,8 @@ if __name__ == '__main__':
         print(linked_list)
         
         ## test __getitem__ method
-        print(linked_list[0])
+        linked_list[0].data = 13
+        print(linked_list)
         
         return
     
