@@ -1,5 +1,5 @@
 ## Simple hash functions
-from typing import Annotated
+from typing import Annotated, Type
 
 
 def hash_function_remainder(
@@ -55,6 +55,75 @@ def hash_function_multiplication(
     """
     
     return int(array_size * ((a * key) - int(a * key)))
+
+
+class Node:
+    """Node for LinkedList"""
+    
+    def __init__(self, key, value) -> None:        
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+        return
+
+
+class LinkedList:
+    """DoubleLinkedList for hash chaining"""
+    
+    def __init__(self) -> None:
+        self.head = None
+        self.tail = None
+        return
+    
+    def find_with_key(self, key) -> Type['Node']:
+        
+        iterator = self.head
+        while iterator is not None:
+            if iterator.key == key:
+                return iterator
+            iterator = iterator.next
+        return None
+    
+    def append(self, key, value) -> None:
+        
+        new_node = Node(key, value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
+        return
+
+    def delete(self, node_to_delete : Type['Node']) -> None:
+        
+        if node_to_delete is self.head:
+            self.head = node_to_delete.next
+            if node_to_delete is self.tail:
+                self.tail = None
+            else:
+                self.head.prev = None
+        elif node_to_delete is self.tail:
+            self.tail = node_to_delete.prev
+            self.tail.next = None
+        else:
+            node_to_delete.prev.next = node_to_delete.next
+            node_to_delete.next.prev = node_to_delete.prev
+        
+        return
+
+    def __str__(self) -> str:
+        
+        res_str = ''
+        
+        iterator = self.head
+        while iterator is not None:
+            res_str += f'{iterator.key}: {iterator.value}\n'
+            iterator = iterator.next
+            
+        return res_str
 
 
 if __name__ == '__main__':
