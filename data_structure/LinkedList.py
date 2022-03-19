@@ -90,6 +90,19 @@ class LinkedList:
             
         return
     
+    def prepend(self, data : E) -> None:
+        """Add node contain data at the first of LinkedList"""
+        
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+
+        return
+    
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
         
@@ -170,6 +183,22 @@ if __name__ == '__main__':
         ## test insert after method
         linked_list.insert_after(linked_list[3], 30)
         print(linked_list)
+        
+        ## test prepend method
+        linked_list = LinkedList()
+
+        # 여러 데이터를 링크드 리스트 앞에 추가
+        linked_list.prepend(11)
+        linked_list.prepend(7)
+        linked_list.prepend(5)
+        linked_list.prepend(3)
+        linked_list.prepend(2)
+
+        print(linked_list)  # 링크드 리스트 출력
+
+        # head, tail 노드가 제대로 설정됐는지 확인
+        print(linked_list.head.data)
+        print(linked_list.tail.data)
         
         return
     
