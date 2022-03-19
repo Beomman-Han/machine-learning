@@ -31,4 +31,4 @@ jobs:
 
       # Runs a single command using the runners shell
       #- name: Run python script
-      - run: python main.py
+      - run: sh test_script.sh
