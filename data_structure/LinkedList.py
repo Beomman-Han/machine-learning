@@ -90,6 +90,19 @@ class LinkedList:
             
         return
     
+    def delete_after(self, prev_node : Type['Node']) -> E:
+        """Delete node after 'prev_node'"""
+        
+        data = prev_node.next.data
+        
+        if prev_node.next is self.tail:
+            prev_node.next = None
+            self.tail = prev_node
+        else:
+            prev_node.next = prev_node.next.next
+
+        return data
+    
     def prepend(self, data : E) -> None:
         """Add node contain data at the first of LinkedList"""
         
@@ -199,6 +212,9 @@ if __name__ == '__main__':
         # head, tail 노드가 제대로 설정됐는지 확인
         print(linked_list.head.data)
         print(linked_list.tail.data)
+        
+        print(linked_list.delete_after(linked_list[2]))
+        print(linked_list)
         
         return
     
