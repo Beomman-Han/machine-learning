@@ -61,6 +61,20 @@ class LinkedList:
 
         return
     
+    def __str__(self) -> str:
+        """Special method for printing LinkedList object"""
+        
+        delimiter = '->'
+        
+        string = ''
+        iterator = self.head
+        while iterator is not None:
+            string += f'{str(iterator.data)}->'
+            iterator = iterator.next
+        string += '*'
+                        
+        return string
+    
 if __name__ == '__main__':
     
     def main():
@@ -94,6 +108,8 @@ if __name__ == '__main__':
         while iterator is not None:
             print(iterator.data)
             iterator = iterator.next
+            
+        print(linked_list)
         
         return
     
