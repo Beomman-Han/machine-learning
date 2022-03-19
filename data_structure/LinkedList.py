@@ -116,6 +116,18 @@ class LinkedList:
 
         return
     
+    def pop_left(self) -> E:
+        """Delete the first of LinkedList and return data of deleted node"""
+        
+        data = self.head.data
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+        else:
+            self.head = self.head.next
+
+        return data
+    
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
         
