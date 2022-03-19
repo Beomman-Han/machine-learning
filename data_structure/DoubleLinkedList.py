@@ -38,6 +38,22 @@ class DoubleLinkedList:
         self.tail = None
         return
     
+    def append(self, data : E) -> None:
+        """Append node with data"""
+        
+        ...
+        new_node = Node(data)
+        
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
+
+        return
+        
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
         
@@ -71,12 +87,12 @@ class DoubleLinkedList:
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
         
-        delimiter = '->'
+        delimiter = '<->'
         
         string = ''
         iterator = self.head
         while iterator is not None:
-            string += f'{str(iterator.data)}->'
+            string += f'{str(iterator.data)}{delimiter}'
             iterator = iterator.next
         string += '*'
                         
@@ -100,6 +116,17 @@ if __name__ == '__main__':
         node_3.prev = node_2
         node_3.next = tail_node
         tail_node.prev = node_3
+        
+        my_list = DoubleLinkedList()
+        my_list.append(2)
+        my_list.append(3)
+        my_list.append(5)
+        my_list.append(7)
+        my_list.append(11)
+        
+        print(my_list)
+        print(my_list[1].data)
+        print(my_list[-1].data)
 
         return
     
