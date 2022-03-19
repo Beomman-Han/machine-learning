@@ -63,6 +63,32 @@ class LinkedList:
             self.tail = new_node
 
         return
+
+    def insert_after(self,
+        prev_node : Type['Node'],
+        data : E
+        ) -> None:
+        
+        """Insert node with 'data' at next of 'prev_node'
+
+        Parameters
+        ----------
+        prev_node : Type['Node']
+            Previous node of insert node
+        data : E
+            Data for insert
+        """
+        
+        new_node = Node(data)
+        
+        if prev_node is self.tail:
+            self.append(new_node)
+        else:
+            next_node = prev_node.next
+            prev_node.next = new_node
+            new_node.next = next_node
+            
+        return
     
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
@@ -139,6 +165,10 @@ if __name__ == '__main__':
         
         ## test __getitem__ method
         linked_list[0].data = 13
+        print(linked_list)
+        
+        ## test insert after method
+        linked_list.insert_after(linked_list[3], 30)
         print(linked_list)
         
         return
