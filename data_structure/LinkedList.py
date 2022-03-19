@@ -37,6 +37,8 @@ class Node:
         self._next = node
         return
     
+    def __str__(self) -> str:
+        return str(self.data)
 
 class LinkedList:
     """LinkedList class containing Node objects"""
@@ -64,7 +66,6 @@ class LinkedList:
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
         
-        print(index)
         iterator = self.head
         for _ in range(index):
             try:
@@ -126,8 +127,7 @@ if __name__ == '__main__':
         print(linked_list)
         
         ## test __getitem__ method
-        print(linked_list[0].data)
-        
+        print(linked_list[0])
         
         return
     
