@@ -119,7 +119,32 @@ class DoubleLinkedList:
             new_node.next = self.head
             self.head.prev = new_node
             self.head = new_node
+            
         return
+    
+    def delete(self, node_to_delete : Type['Node']) -> None:
+        """Delete node from list
+
+        Parameters
+        ----------
+        node : Type['Node']
+            Node for delete
+        """
+        
+        if node_to_delete is self.head:
+            self.head = node_to_delete.next
+            if node_to_delete is self.tail:
+                self.tail = None
+            else:
+                self.head.prev = None
+        elif node_to_delete is self.tail:
+            self.tail = node_to_delete.prev
+            self.tail.next = None
+        else:
+            node_to_delete.prev.next = node_to_delete.next
+            node_to_delete.next.prev = node_to_delete.prev
+        
+        return node_to_delete.data
         
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
@@ -170,6 +195,9 @@ if __name__ == '__main__':
         print(my_list)
         
         my_list.prepend(100)
+        print(my_list)
+        
+        my_list.delete(my_list[0])
         print(my_list)
 
         return
