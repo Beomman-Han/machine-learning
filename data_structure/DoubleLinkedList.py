@@ -41,12 +41,20 @@ class DoubleLinkedList:
     def __getitem__(self, index : int) -> Type['Node']:
         """Get node by index"""
         
-        iterator = self.head
-        for _ in range(index):
-            try:
-                iterator = iterator.next
-            except AttributeError:
-                raise Exception('IndexError: index out of range')
+        if index >= 0:
+            iterator = self.head
+            for _ in range(index):
+                try:
+                    iterator = iterator.next
+                except AttributeError:
+                    raise Exception('IndexError: index out of range')
+        else:
+            iterator = self.tail
+            for _ in range(-1 * index - 1):
+                try:
+                    iterator = iterator.prev
+                except AttributeError:
+                    raise Exception('IndexError: index out of range')
         
         return iterator
     
@@ -74,3 +82,25 @@ class DoubleLinkedList:
                         
         return string
 
+if __name__ == '__main__':
+    
+    def main():
+        
+        head_node = Node(2)
+        node_1 = Node(3)
+        node_2 = Node(5)
+        node_3 = Node(7)
+        tail_node = Node(11)
+        
+        head_node.next = node_1
+        node_1.prev = head_node
+        node_1.next = node_2
+        node_2.prev = node_1
+        node_2.next = node_3
+        node_3.prev = node_2
+        node_3.next = tail_node
+        tail_node.prev = node_3
+
+        return
+    
+    main()
