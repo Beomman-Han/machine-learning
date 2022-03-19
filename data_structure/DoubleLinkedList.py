@@ -84,6 +84,23 @@ class DoubleLinkedList:
             iterator = iterator.next
         return iterator
     
+    def insert_after(self,
+        previous_node : Type['Node'],
+        data : E
+        ) -> None:
+        """Insert node after previous node"""
+        
+        new_node = Node(data)
+        if previous_node is self.tail:
+            self.append(data)
+        else:
+            new_node.prev = previous_node
+            new_node.next = previous_node.next
+            
+            previous_node.next.prev = new_node
+            previous_node.next = new_node
+            
+        return    
     def __str__(self) -> str:
         """Special method for printing LinkedList object"""
         
@@ -127,6 +144,12 @@ if __name__ == '__main__':
         print(my_list)
         print(my_list[1].data)
         print(my_list[-1].data)
+        
+        print(my_list)
+        my_list.insert_after(my_list[-1], 50)
+        print(my_list)
+        print(my_list[-1].prev.data)
+        print(my_list[-2].next.data)
 
         return
     
