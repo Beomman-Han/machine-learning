@@ -1,5 +1,5 @@
 ## Simple hash functions
-from typing import Annotated, Type
+from typing import Annotated, Type, TypeVar
 
 
 def hash_function_remainder(
@@ -124,6 +124,49 @@ class LinkedList:
             iterator = iterator.next
             
         return res_str
+
+
+T = TypeVar('T')  ## Immutable types
+
+@dataclass
+class KeyRange:
+    min: int
+    max: int
+    
+    
+class HashTable:
+    """HashTable with double LinkedList"""
+    
+    def __init__(self, capacity : int) -> None:
+        self._capacity = capacity
+        self._table = [LinkedList() for _ in range(self._capacity)]
+        return
+    
+    # def _hash_function(self, key : T) -> Annotated(int, KeyRange(0, '_capcacity' - 1)):
+    def _hash_function(self, key : T) -> int:
+        """Hash function with remainder.
+        Input key should be immutable type.
+
+        Parameters
+        ----------
+        key : T
+            Immutable type key
+
+        Returns
+        -------
+        int
+            Index number for hash table
+        """
+        
+        return hash(key) % self._capacity
+    
+    def __str__(self) -> str:
+
+        res_str = ''
+        for linked_list in self._table:
+            res_str += str(linked_list)
+            
+        return res_str[:-1]
 
 
 if __name__ == '__main__':
