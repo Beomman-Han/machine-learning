@@ -158,7 +158,54 @@ class HashTable:
             Index number for hash table
         """
         
+        ## 'hash(key)' value could change at every running
         return hash(key) % self._capacity
+    
+    def _get_linked_list_for_key(self, key) -> Type['LinkedList']:
+        
+        hashed_index = self._hash_function(key)
+        return self._table[hashed_index]
+    
+    def _look_up_node(self, key) -> Type['Node']:
+        
+        linked_list = self._get_linked_list_for_key(key)
+        return linked_list.find_with_key(key)
+        
+    def look_up_value(self, key : T) -> T:
+        """Find value from key: value nodes in hash table
+
+        Parameters
+        ----------
+        key : T
+            Key value
+
+        Returns
+        -------
+        T
+            Value from 'key: value'
+        """
+        
+        node = self._look_up_node(key)        
+        return node.value
+    
+    def insert(self, key, value) -> None:
+        """Insert node with key, value at hash table
+
+        Parameters
+        ----------
+        key : T
+            Key value
+        value : T
+            Value for key
+        """
+        
+        ## check whether replicate node is in linked list
+        rep_node = self._look_up_node(key)
+        if rep_node is None:
+            self._get_linked_list_for_key(key).append(key, value)
+        else:
+            rep_node.value = value
+        return      
     
     def __str__(self) -> str:
 
@@ -200,3 +247,30 @@ if __name__ == '__main__':
     print(hash('파이썬'))
     print(hash('파이썬'))
     print(hash('자바'))
+    print()
+    
+    ## test hash table
+    test_scores = HashTable(50)  # 시험 점수를 담을 해시 테이블 인스턴스 생성
+
+    # 여러 학생들 이름과 시험 점수 삽입
+    test_scores.insert("현승", 85)
+    test_scores.insert("영훈", 90)
+    test_scores.insert("동욱", 87)
+    test_scores.insert("지웅", 99)
+    test_scores.insert("신의", 88)
+    test_scores.insert("규식", 97)
+    test_scores.insert("태호", 90)
+
+    print(test_scores)
+
+    # key인 이름으로 특정 학생 시험 점수 검색
+    print(test_scores.look_up_value("현승"))
+    print(test_scores.look_up_value("태호"))
+    print(test_scores.look_up_value("영훈"))
+
+    # 학생들 시험 점수 수정
+    test_scores.insert("현승", 10)
+    test_scores.insert("태호", 20)
+    test_scores.insert("영훈", 30)
+
+    print(test_scores)
