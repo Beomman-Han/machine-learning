@@ -207,6 +207,15 @@ class HashTable:
             rep_node.value = value
         return      
     
+    def delete_by_key(self, key) -> None:
+        
+        finding_node = self._look_up_node(key)
+        if finding_node is not None:
+            linked_list = self._get_linked_list_for_key(key)
+            linked_list.delete(finding_node)
+        return
+        
+    
     def __str__(self) -> str:
 
         res_str = ''
@@ -272,5 +281,15 @@ if __name__ == '__main__':
     test_scores.insert("현승", 10)
     test_scores.insert("태호", 20)
     test_scores.insert("영훈", 30)
+
+    print(test_scores)
+    print()
+    
+    # 학생들 시험 점수 삭제
+    test_scores.delete_by_key("태호")
+    test_scores.delete_by_key("지웅")
+    test_scores.delete_by_key("신의")
+    test_scores.delete_by_key("현승")
+    test_scores.delete_by_key("규식")
 
     print(test_scores)
