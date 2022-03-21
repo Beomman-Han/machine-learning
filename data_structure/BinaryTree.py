@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import Type, TypeVar
 
 
 C = TypeVar('C')  ## Comparable
@@ -19,7 +19,41 @@ class BinaryTree:
     def __init__(self, value : C) -> None:
         self.root = Node(value)
         return
+
+def traverse_inorder(node : Type['Node']):
+    ## base case
+    if node is None:
+        return
     
+    ## recursive case
+    traverse_inorder(node.left_child)
+    print(node.data)
+    traverse_inorder(node.right_child)
+
+    return
+
+def traverse_preorder(node : Type['Node']):
+    ## base case
+    if node is None:
+        return
+    ## recursive case
+    print(node.data)
+    traverse_preorder(node.left_child)
+    traverse_preorder(node.right_child)
+    
+    return
+
+def traverse_postorder(node : Type['Node']):
+    ## base case
+    if node is None:
+        return
+    ## recursive case
+    traverse_postorder(node.left_child)
+    traverse_postorder(node.right_child)
+    print(node.data)
+
+    return
+
 if __name__ == '__main__':
     
     ## init node instance
@@ -39,3 +73,10 @@ if __name__ == '__main__':
     test_node_1 = root_node.left_child
     print(test_node_1.data)
     
+    ## test traverse functions
+    print('## traverse inorder')
+    traverse_inorder(root_node)
+    print('## traverse preorder')
+    traverse_preorder(root_node)
+    print('## traverse postorder')
+    traverse_postorder(root_node)
