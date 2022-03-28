@@ -78,6 +78,62 @@ class BinarySearchTree:
         ## recursive case        
         return BinarySearchTree.find_min(node.left_child)
 
+    def delete(self, data):
+        """Delete leaf node in tree"""
+        node_to_delete = self.search(data)
+        parent_node = node_to_delete.parent
+        
+        ## case 1: node to delete is leaf node
+        if node_to_delete.left_child is None and\
+        node_to_delete.right_child is None:
+            if node_to_delete is self.root:
+                self.root = None
+                return
+            
+            if parent_node.left_child is node_to_delete:
+                parent_node.left_child = None
+            else:
+                parent_node.right_child = None
+        ## case 2: node to delete has one child node
+        elif node_to_delete.left_child is None:
+            if node_to_delete is self.root:
+                self.root = node_to_delete.right_child
+                self.root.parent = None
+                return
+            if node_to_delete is parent_node.left_child:
+                parent_node.left_child = node_to_delete.right_child
+            else:
+                parent_node.right_child = node_to_delete.right_child
+            node_to_delete.right_child.parent = parent_node
+        elif node_to_delete.right_child is None:
+            if node_to_delete is self.root:
+                self.root = node_to_delete.left_child
+                self.root.parent = None
+                return
+            if node_to_delete is parent_node.left_child:
+                parent_node.left_child = node_to_delete.left_child
+            else:
+                parent_node.right_child = node_to_delete.left_child
+            node_to_delete.left_child.parent = parent_node
+        ## case 3: node to delete has both child nodes
+        else:
+            successor = BinarySearchTree.find_min(node_to_delete.right_child)
+            node_to_delete.data = successor.data
+            
+            ## del successor
+            if successor.right_child is None:
+                if successor is successor.parent.right_child:
+                    successor.parent.right_child = None
+                else:
+                    successor.parent.left_child = None
+            else:
+                if successor is successor.parent.right_child:
+                    successor.parent.right_child = successor.right_child
+                else:
+                    successor.parent.left_child = successor.right_child
+                successor.right_child.parent = successor.parent
+        return
+
 
 if __name__ == '__main__':
     
@@ -137,3 +193,33 @@ if __name__ == '__main__':
 
     print(bst.find_min(bst.root).data)
     print(bst.find_min(bst.root.right_child).data)
+    print()
+        
+    ## test delete method
+    bst.insert(7)
+    bst.insert(11)
+    bst.insert(9)
+    bst.insert(17)
+    bst.insert(8)
+    bst.insert(5)
+    bst.insert(19)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(14)
+    
+    ## delete leaf nodes
+    # bst.delete(2)
+    # bst.delete(4)
+
+    # bst.print_sorted_tree()
+
+    ## delete nodes having only one child
+    # bst.delete(5)
+    # bst.delete(9)
+    
+    ## delete nodes having both child
+    bst.delete(7)
+    bst.delete(11)
+
+    bst.print_sorted_tree()    
