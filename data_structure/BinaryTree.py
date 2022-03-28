@@ -115,6 +115,21 @@ def heapify(
 
     return
 
+def heapsort(tree):
+    """힙 정렬 함수"""
+    tree_size = len(tree)
+
+    ## make heap
+    for i in range(tree_size-1):
+        heapify(tree, tree_size-i-1, tree_size)
+    
+    for i in range(tree_size-1):
+        ## swap root node and last node
+        swap(tree, 1, tree_size-i-1)
+        ## heapify root node
+        heapify(tree, 1, tree_size-i-1)
+    
+    return
 
 if __name__ == '__main__':
     
@@ -146,4 +161,9 @@ if __name__ == '__main__':
     ## test heapify function
     tree = [None, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1]  # heapify하려고 하는 완전 이진 트리
     heapify(tree, 2, len(tree))  # 노드 2에 heapify 호출
-    print(tree) 
+    print(tree)
+    
+    ## test heapsort function
+    data_to_sort = [None, 6, 1, 4, 7, 10, 3, 8, 5, 1, 5, 7, 4, 2, 1]
+    heapsort(data_to_sort)
+    print(data_to_sort)
