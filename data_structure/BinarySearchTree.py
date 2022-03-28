@@ -55,7 +55,18 @@ class BinarySearchTree:
             else:
                 return
         return
-        
+    
+    def search(self, data) -> Node:
+        """Find node whose data is same with input data"""
+        iter_node = self.root
+        while iter_node is not None:
+            if iter_node.data == data:
+                return iter_node
+            elif iter_node.data > data:
+                iter_node = iter_node.left_child
+            else:
+                iter_node = iter_node.right_child
+        return
 
 if __name__ == '__main__':
     
@@ -89,3 +100,10 @@ if __name__ == '__main__':
     bst.insert(4)
     bst.insert(14)
     bst.print_sorted_tree()
+    print()
+    
+    # test search method
+    print(bst.search(7).data)
+    print(bst.search(19).data)
+    print(bst.search(2).data)
+    print(bst.search(20))
