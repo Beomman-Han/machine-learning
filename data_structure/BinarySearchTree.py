@@ -67,6 +67,17 @@ class BinarySearchTree:
             else:
                 iter_node = iter_node.right_child
         return
+    
+    @staticmethod
+    def find_min(node) -> Node:
+        """Find node whose data is minumum in tree having input node as root"""
+        ## base case
+        if node.left_child is None:
+            return node
+        
+        ## recursive case        
+        return BinarySearchTree.find_min(node.left_child)
+
 
 if __name__ == '__main__':
     
@@ -102,8 +113,27 @@ if __name__ == '__main__':
     bst.print_sorted_tree()
     print()
     
-    # test search method
+    ## test search method
     print(bst.search(7).data)
     print(bst.search(19).data)
     print(bst.search(2).data)
     print(bst.search(20))
+    print()
+    
+    ## test find_min method
+    bst = BinarySearchTree()
+
+    bst.insert(7)
+    bst.insert(11)
+    bst.insert(9)
+    bst.insert(17)
+    bst.insert(8)
+    bst.insert(5)
+    bst.insert(19)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(14)
+
+    print(bst.find_min(bst.root).data)
+    print(bst.find_min(bst.root.right_child).data)
