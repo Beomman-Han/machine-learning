@@ -1,3 +1,3 @@
-# algorithm_codeit
+# Algorithm and Data Structure
 
-repository for codeit algorithm class
+Repository for studying various basic algorithm and data structure with python codes.
