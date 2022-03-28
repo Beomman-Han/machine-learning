@@ -12,7 +12,7 @@ class PriorityQueue:
         return
     
     def _reverse_heapify(self, index):
-        """Check heap property of data from index to root"""
+        """Check heap property of data from input index to root"""
         while index > 1:
             parent_index = index // 2
             if self.heap[parent_index] < self.heap[index]:
@@ -26,6 +26,22 @@ class PriorityQueue:
         """Insert new data at self.heap"""
         self.heap.append(data)
         self._reverse_heapify(len(self.heap)-1)
+        return
+    
+    def _heapify(self, index):
+        """Check heap property of data from input index to last index"""
+        if 0 < index < len(self.heap):
+            largest = index
+            left_child_index = index * 2
+            if 0 < left_child_index < len(self.heap) and\
+                self.heap[left_child_index] > self.heap[largest]:
+                largest = left_child_index
+            right_child_index = index * 2 + 1
+            if 0 < right_child_index < len(self.heap) and\
+                self.heap[right_child_index] > self.heap[largest]:
+                largest = right_child_index
+            self._swap(index, largest)
+            self._heapify(largest)
         return
     
     def __str__(self):
