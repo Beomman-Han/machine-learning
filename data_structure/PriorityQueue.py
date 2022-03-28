@@ -40,9 +40,17 @@ class PriorityQueue:
             if 0 < right_child_index < len(self.heap) and\
                 self.heap[right_child_index] > self.heap[largest]:
                 largest = right_child_index
-            self._swap(index, largest)
-            self._heapify(largest)
+            if largest != index:
+                self._swap(index, largest)
+                self._heapify(largest)
         return
+
+    def extract_max(self):
+        """Return max priority data from self.heap"""
+        self._swap(1, len(self.heap)-1)
+        max_prior_data = self.heap.pop()
+        self._heapify(1)
+        return max_prior_data
     
     def __str__(self):
         return str(self.heap)
@@ -61,3 +69,11 @@ if __name__ == '__main__':
     priority_queue.insert(13)
 
     print(priority_queue)
+    
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
+    print(priority_queue.extract_max())
