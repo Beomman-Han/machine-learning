@@ -7,22 +7,53 @@ class Node:
         self.right_child = None
         return
 
+def print_in_order(node : Node) -> None:
+    """Print data in tree by in-order traverse"""
+    ## base case
+    if node == None:
+        return
+    ## recursive case
+    print_in_order(node.left_child)
+    print(node.data)
+    print_in_order(node.right_child)
+    return
+
 class BinarySearchTree:
     """BinarySearchTree class"""
     def __init__(self):
         self.root = None
         return
-
-    def print_sorted_tree(self, node):
-        """Print data in tree by in-order traverse"""
-        ## base case
-        if node == None:
+    
+    def print_sorted_tree(self):
+        """Print data in BinarySearchTree"""
+        print_in_order(self.root)
+        return
+    
+    def insert(self, data):
+        """Insert data at BinarySearchTree"""
+        if self.root is None:
+            self.root = Node(data)
             return
         
-        ## recursive case
-        self.print_sorted_tree(node.left_child)
-        print(node.data)
-        self.print_sorted_tree(node.right_child)
+        node = Node(data)
+        iter_node = self.root
+        while iter_node is not None:
+            if data < iter_node.data:
+                if iter_node.left_child is None:
+                    iter_node.left_child = node
+                    node.parent = iter_node
+                    return
+                else:
+                    iter_node = iter_node.left_child
+            elif data > iter_node.data:
+                if iter_node.right_child is None:
+                    iter_node.right_child = node
+                    node.parent = iter_node
+                    return
+                else:
+                    iter_node = iter_node.right_child
+            else:
+                return
         return
         
 
@@ -42,6 +73,19 @@ if __name__ == '__main__':
     ## make BinarySearchTree instance
     bst = BinarySearchTree()
     bst.root = node_0
+    bst.print_sorted_tree()
+    print()
     
-    bst.print_sorted_tree(bst.root)
-    
+    ## test insert method
+    bst.insert(7)
+    bst.insert(11)
+    bst.insert(9)
+    bst.insert(17)
+    bst.insert(8)
+    bst.insert(5)
+    bst.insert(19)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(14)
+    bst.print_sorted_tree()
