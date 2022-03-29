@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Dict, Type
+from typing import Dict, Literal, Type
 
 
 class StationNode:
@@ -8,7 +8,7 @@ class StationNode:
     def __init__(self, name):
         self.station_name = name
         self.adjacent_stations = []
-        self.visited = False
+        self.visited : Literal[0, 1, 2] = 0  ## 0, 1, 2
         return
     
     def add_connection(self,
@@ -72,7 +72,7 @@ def bfs(
     start_node : StationNode
     ) -> None:
     
-    """Visit every node which could go from start_node
+    """Visit every node which could go from start_node, breadth first.
     
     1) append node to queue
     2) while queue empty,
@@ -98,6 +98,32 @@ def bfs(
                 queue.append(adj_station)
 
     return
+
+def dfs(
+    graph : Dict[str, StationNode],
+    start_node : StationNode
+    ) -> None:
+    
+    """Search every node from start_node, depth first"""
+    
+    for station in graph.values():
+        station.visited = 0
+    
+    stack = deque()
+    start_node.visited = 1
+    stack.append(start_node)
+    
+    while stack:
+        top_node = stack.pop()
+        top_node.visited = 2
+        
+        for neighbor in top_node.adjacent_stations:
+            if not neighbor.visited:
+                neighbor.visited = 1
+                stack.append(neighbor)
+
+    return
+
     
 if __name__ == '__main__':
     ## Init instance for subway station
@@ -133,8 +159,23 @@ if __name__ == '__main__':
 
     gangnam_station = stations["강남"]
 
+    # # 강남역과 경로를 통해 연결된 모든 노드를 탐색
+    # bfs(stations, gangnam_station)
+
+    # # 강남역과 서울 지하철 역들이 연결됐는지 확인
+    # print(stations["강동구청"].visited)
+    # print(stations["평촌"].visited)
+    # print(stations["송도"].visited)
+    # print(stations["개화산"].visited)
+
+    # # 강남역과 대전 지하철 역들이 연결됐는지 확인
+    # print(stations["반석"].visited)
+    # print(stations["지족"].visited)
+    # print(stations["노은"].visited)
+    # print(stations["(대전)신흥"].visited)
+    
     # 강남역과 경로를 통해 연결된 모든 노드를 탐색
-    bfs(stations, gangnam_station)
+    dfs(stations, gangnam_station)
 
     # 강남역과 서울 지하철 역들이 연결됐는지 확인
     print(stations["강동구청"].visited)
