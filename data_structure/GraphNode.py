@@ -1,4 +1,5 @@
-from typing import Dict
+import sys
+from typing import Dict, Type
 
 
 class StationNode:
@@ -6,8 +7,27 @@ class StationNode:
     
     def __init__(self, name):
         self.station_name = name
+        self.adjacent_stations = []
+        return
+    
+    def add_connection(self,
+        other_station : Type['StationNode']
+        ) -> None:
+        """Save edge btw StationNodes"""
+        self.adjacent_stations.append(other_station)
+        other_station.adjacent_stations.append(self)
         return
 
+    def __str__(self) -> str:
+        """Print string for StationNode"""
+        res_str = f'{self.station_name}: '
+        
+        for station in self.adjacent_stations:
+            res_str += f'{station.station_name} '
+            
+        return res_str
+        
+        
 def create_station_nodes(
     input_file: str
     ) -> Dict[str, StationNode]:
@@ -23,7 +43,29 @@ def create_station_nodes(
     f.close()
     
     return stations
+
+def create_subway_graph(input_file):
     
+    stations = dict()
+    f = open(input_file, 'r')
+    for line in f:
+        names = [ x.strip() for x in line.strip('\n').split(' - ') ]
+        
+        if names[0] not in stations.keys():
+            stations[names[0]] = StationNode(names[0])
+
+        for i in range(1, len(names)):
+            if names[i] not in stations.keys():
+                station = StationNode(names[i])
+                station.add_connection(stations[names[i-1]])
+                stations[names[i]] = station
+            else:
+                station = stations[names[i]]
+                station.add_connection(stations[names[i-1]])
+    f.close()
+    
+    return stations
+
     
 if __name__ == '__main__':
     ## Init instance for subway station
@@ -44,8 +86,12 @@ if __name__ == '__main__':
     # }
     
     ## test create_station_nodes function
-    stations = create_station_nodes("./algorithm/data_structure/stations.txt")  # stations.txt 파일로 그래프 노드들을 만든다
-
-    # stations에 저장한 역들 이름 출력 (채점을 위해 역 이름 순서대로 출력)
+    # stations = create_station_nodes("./algorithm/data_structure/stations.txt")  # stations.txt 파일로 그래프 노드들을 만든다
+    ## print name of station in stations
+    # for station in sorted(stations.keys()):
+    #     print(stations[station].station_name)
+    
+    stations = create_subway_graph("./algorithm/data_structure/stations.txt")  # stations.txt 파일로 그래프를 만든다
+    ## print adjacent list of station in stations
     for station in sorted(stations.keys()):
-        print(stations[station].station_name)
+        print(stations[station])
