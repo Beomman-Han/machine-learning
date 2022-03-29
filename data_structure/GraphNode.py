@@ -1,4 +1,4 @@
-import sys
+from collections import deque
 from typing import Dict, Type
 
 
@@ -8,6 +8,7 @@ class StationNode:
     def __init__(self, name):
         self.station_name = name
         self.adjacent_stations = []
+        self.visited = False
         return
     
     def add_connection(self,
@@ -66,6 +67,37 @@ def create_subway_graph(input_file):
     
     return stations
 
+def bfs(
+    graph : Dict[str, StationNode],
+    start_node : StationNode
+    ) -> None:
+    
+    """Visit every node which could go from start_node
+    
+    1) append node to queue
+    2) while queue empty,
+        - pop node
+        - for every connected node,
+            - if not visited, visit
+            - append every connected node
+    """
+    
+    queue = deque()
+    
+    for station_node in graph.values():
+        station_node.visited = False
+    
+    start_node.visited = True
+    queue.append(start_node)
+    
+    while len(queue) != 0:
+        station = queue.popleft()
+        for adj_station in station.adjacent_stations:
+            if not adj_station.visited:
+                adj_station.visited = True
+                queue.append(adj_station)
+
+    return
     
 if __name__ == '__main__':
     ## Init instance for subway station
@@ -91,7 +123,27 @@ if __name__ == '__main__':
     # for station in sorted(stations.keys()):
     #     print(stations[station].station_name)
     
-    stations = create_subway_graph("./algorithm/data_structure/stations.txt")  # stations.txt 파일로 그래프를 만든다
-    ## print adjacent list of station in stations
-    for station in sorted(stations.keys()):
-        print(stations[station])
+    # stations = create_subway_graph("./algorithm/data_structure/stations.txt")  # stations.txt 파일로 그래프를 만든다
+    # ## print adjacent list of station in stations
+    # for station in sorted(stations.keys()):
+    #     print(stations[station])
+
+    ## test bfs function
+    stations = create_subway_graph("./algorithm/data_structure/new_stations.txt")  # stations.txt 파일로 그래프를 만든다
+
+    gangnam_station = stations["강남"]
+
+    # 강남역과 경로를 통해 연결된 모든 노드를 탐색
+    bfs(stations, gangnam_station)
+
+    # 강남역과 서울 지하철 역들이 연결됐는지 확인
+    print(stations["강동구청"].visited)
+    print(stations["평촌"].visited)
+    print(stations["송도"].visited)
+    print(stations["개화산"].visited)
+
+    # 강남역과 대전 지하철 역들이 연결됐는지 확인
+    print(stations["반석"].visited)
+    print(stations["지족"].visited)
+    print(stations["노은"].visited)
+    print(stations["(대전)신흥"].visited)
