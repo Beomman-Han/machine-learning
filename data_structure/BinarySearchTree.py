@@ -79,59 +79,56 @@ class BinarySearchTree:
         return BinarySearchTree.find_min(node.left_child)
 
     def delete(self, data):
-        """Delete leaf node in tree"""
+        """Delete node having input data"""
         node_to_delete = self.search(data)
         parent_node = node_to_delete.parent
         
-        ## case 1: node to delete is leaf node
+        ## case 1: leaf node
         if node_to_delete.left_child is None and\
         node_to_delete.right_child is None:
             if node_to_delete is self.root:
                 self.root = None
                 return
             
-            if parent_node.left_child is node_to_delete:
+            if node_to_delete is parent_node.left_child:
                 parent_node.left_child = None
             else:
                 parent_node.right_child = None
-        ## case 2: node to delete has one child node
-        elif node_to_delete.left_child is None:
-            if node_to_delete is self.root:
-                self.root = node_to_delete.right_child
-                self.root.parent = None
-                return
-            if node_to_delete is parent_node.left_child:
-                parent_node.left_child = node_to_delete.right_child
-            else:
-                parent_node.right_child = node_to_delete.right_child
-            node_to_delete.right_child.parent = parent_node
+        ## case 2: having only 1 child
         elif node_to_delete.right_child is None:
             if node_to_delete is self.root:
                 self.root = node_to_delete.left_child
                 self.root.parent = None
                 return
+            
             if node_to_delete is parent_node.left_child:
                 parent_node.left_child = node_to_delete.left_child
+                parent_node.left_child.parent = parent_node
             else:
                 parent_node.right_child = node_to_delete.left_child
-            node_to_delete.left_child.parent = parent_node
-        ## case 3: node to delete has both child nodes
-        else:
-            successor = BinarySearchTree.find_min(node_to_delete.right_child)
-            node_to_delete.data = successor.data
+                parent_node.right_child.parent = parent_node
+        elif node_to_delete.left_child is None:
+            if node_to_delete is self.root:
+                self.root = node_to_delete.right_child
+                self.root.parent = None
+                return
             
-            ## del successor
-            if successor.right_child is None:
-                if successor is successor.parent.right_child:
-                    successor.parent.right_child = None
-                else:
-                    successor.parent.left_child = None
+            if node_to_delete is parent_node.left_child:
+                parent_node.left_child = node_to_delete.right_child
+                parent_node.left_child.parent = parent_node
             else:
-                if successor is successor.parent.right_child:
-                    successor.parent.right_child = successor.right_child
-                else:
-                    successor.parent.left_child = successor.right_child
-                successor.right_child.parent = successor.parent
+                parent_node.right_child = node_to_delete.right_child
+                parent_node.right_child.parent = parent_node
+        ## case 3: having both child nodes
+        else:
+            successor_node = self.find_min(node_to_delete.right_child)
+            node_to_delete.data = successor_node.data
+            
+            if successor_node.right_child is None:
+                successor_node.parent.left_child = None
+            else:
+                successor_node.parent.left_child = successor_node.right_child
+                successor_node.parent.left_child.parent = successor_node.parent
         return
 
 
@@ -219,7 +216,6 @@ if __name__ == '__main__':
     # bst.delete(9)
     
     ## delete nodes having both child
-    bst.delete(7)
-    bst.delete(11)
-
-    bst.print_sorted_tree()    
+    bst.delete_(7)
+    bst.delete_(11)
+    bst.print_sorted_tree()
