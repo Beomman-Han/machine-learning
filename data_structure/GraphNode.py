@@ -155,7 +155,8 @@ if __name__ == '__main__':
     #     print(stations[station])
 
     ## test bfs function
-    stations = create_subway_graph("./algorithm/data_structure/new_stations.txt")  # stations.txt 파일로 그래프를 만든다
+    # stations = create_subway_graph("./algorithm/data_structure/new_stations.txt")  # stations.txt 파일로 그래프를 만든다
+    stations = create_subway_graph('./new_stations.txt')
 
     gangnam_station = stations["강남"]
 

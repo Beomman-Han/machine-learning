@@ -70,6 +70,7 @@ def back_track(destination_node : StationNode) -> str:
 if __name__ == '__main__':
     
     ## test bfs for shortest path
-    stations = create_subway_graph("./algorithm/data_structure/new_stations.txt")  # stations.txt 파일로 그래프를 만든다
+    # stations = create_subway_graph("./algorithm/data_structure/new_stations.txt")  # stations.txt 파일로 그래프를 만든다
+    stations = create_subway_graph('./new_stations.txt')
     bfs(stations, stations['을지로3가'])
     print(back_track(stations['강동구청']))

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## test codes in algorithm_paradigm/
-for py in `ls algorithm_paradigm/*/*.py`; do
+for py in `ls algorithm/algorithm_paradigm/*/*.py`; do
     python $py
 done
 
