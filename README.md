@@ -1,3 +1,7 @@
-# Algorithm and Data Structure
+# study-practice
 
-Repository for studying various basic algorithm and data structure with python codes.
+Repository for studying various theme of computer science.
+
+- Algorithm : brute force, divide and conquer, dynamic programming, greedy algo
+- Data Structure : linked list, hash table, tree (heap), basic graph, stack, queue
+- Data science
