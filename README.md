@@ -25,5 +25,5 @@ Practice basic data structure and abstract data type (implemented by Python3).
 Practice basic of data science  
 1\) to use numpy array and pandas data frame  
 2\) visualization with seaborn package  
-3\) EDA(explatory data analysis) method
+3\) EDA(explatory data analysis) method  
 4\) data cleaning method (completeness, uniqueness, accuracy)
