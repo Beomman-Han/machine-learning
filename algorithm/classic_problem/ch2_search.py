@@ -69,4 +69,11 @@ class Maze:
                     self._grid[r][c] = Cell.BLOCKED
         
         return
+    
+    def __str__(self) -> str:
+        """Return string format of Maze instance"""
         
+        output = ''
+        for row in self._grid:
+            output += "".join([item.value for item in row]) + '\n'
+        return output
