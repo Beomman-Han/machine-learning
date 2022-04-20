@@ -77,3 +77,6 @@ class Maze:
         for row in self._grid:
             output += "".join([item.value for item in row]) + '\n'
         return output
+
+    def goal_test(self, loc : MazeLocation) -> bool:
+        return loc == self.goal
