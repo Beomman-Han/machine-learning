@@ -80,3 +80,38 @@ class Maze:
 
     def goal_test(self, loc : MazeLocation) -> bool:
         return loc == self.goal
+    
+    def _blocked_test(self,
+        row : int,
+        column : int
+        ) -> bool:
+        
+        return self._grid[row][column] == Cell.BLOCKED
+    
+    def _check_bound(self, row: int, column: int) -> bool:
+        return row in range(self._rows) and column in range(self._columns)
+    
+    def successors(self,
+        loc : MazeLocation
+        ) -> List[MazeLocation]:
+
+        """Find all possible MazeLocation by List"""
+        
+        possible_locs = []
+        if self._check_bound(loc.row + 1, loc.column) and \
+            not self._blocked_test(loc.row + 1, loc.column):
+            possible_locs.append(MazeLocation(loc.row + 1, loc.column))
+        
+        if self._check_bound(loc.row - 1, loc.column) and \
+            not self._blocked_test(loc.row - 1, loc.column):
+            possible_locs.append(MazeLocation(loc.row - 1, loc.column))
+        
+        if self._check_bound(loc.row, loc.column + 1) and \
+            not self._blocked_test(loc.row, loc.column + 1):
+            possible_locs.append(MazeLocation(loc.row, loc.column + 1))
+        
+        if self._check_bound(loc.row, loc.column - 1) and \
+            not self._blocked_test(loc.row, loc.column - 1):
+            possible_locs.append(MazeLocation(loc.row, loc.column - 1))
+        
+        return possible_locs
