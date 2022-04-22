@@ -13,6 +13,25 @@ def prediction(X: np.array, theta: np.array) -> np.array:
     
     return X @ theta
 
+def gradient_descent(
+    X : np.array,
+    theta : np.array,
+    y : np.array,
+    iterations : int,
+    alpha : float
+    ) -> np.array:
+    
+    """Return updated theta with gradient descent"""
+    
+    m = len(X)
+
+    for _ in range(iterations):
+        error = prediction(X, theta) - y
+        theta -= (alpha / m) * (X.T @ error)
+    
+    return theta
+    
+
 if __name__ == '__main__':
     
     ## input variables
@@ -29,6 +48,14 @@ if __name__ == '__main__':
     ]).T
     
     ## parameter theta
-    theta = np.array([1, 2, 3, 4])
+    theta = np.array([1, 2, 3, 4], dtype='float64')
     
     print(prediction(X, theta))
+
+    ## target variable
+    house_price = np.array([3, 3.2, 3.6 , 8, 3.4, 4.5, 5, 5.8, 6, 6.5, 9, 9, 10, 12, 13, 15])  # 집 가격
+
+    ## gradient descent with alpha 0.01 and 100 iterations
+    y = house_price
+    theta = gradient_descent(X, theta, y, 100, 0.01)
+    print(theta)
