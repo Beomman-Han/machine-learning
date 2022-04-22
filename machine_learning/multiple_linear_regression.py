@@ -30,7 +30,12 @@ def gradient_descent(
         theta -= (alpha / m) * (X.T @ error)
     
     return theta
+
+def normal_equation(X: np.array, y: np.array) -> np.array:
+    """Find local minimum with normal equation"""
     
+    return np.linalg.pinv(X.T @ X) @ X.T @ y
+
 
 if __name__ == '__main__':
     
@@ -59,3 +64,9 @@ if __name__ == '__main__':
     y = house_price
     theta = gradient_descent(X, theta, y, 100, 0.01)
     print(theta)
+    print(X @ theta - y)
+    
+    ## find local minmum with normal equation
+    theta = normal_equation(X, y)
+    print(theta)
+    print(X @ theta - y)
