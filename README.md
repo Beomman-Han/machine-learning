@@ -31,4 +31,6 @@ Practice basic of data science
 
 - Machine learning :  
 Practice basic machine learning  
-1\) (multiple) linear regression
+1\) (multiple) linear regression  
+2\) polynomial regression  
+3\) logistic regression  
