@@ -28,7 +28,9 @@ jobs:
         with:
           python-version: '3.x'
           architecture: 'x64'
-
+      # Install dependencies
+      - name: Install dependencies
+        run: pip install numpy
       # Runs a single command using the runners shell
-      #- name: Run python script
-      - run: sh test_script.sh
+      - name: Run python script
+        run: sh test_script.sh
