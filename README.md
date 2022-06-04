@@ -26,3 +26,11 @@ Repository for studying machine learning
     3) logistic regression
     
     4) decision tree, random forest, adaboost
+
+    Practice recommender system with variou machine learning technique
+
+    1) content-based recommend system
+
+    2) (user-based, item-based) collaborative filtering
+
+    3) matrix factorization
